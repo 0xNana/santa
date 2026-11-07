@@ -1,0 +1,131 @@
+.site-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 104px;
+  width: min(100% - 112px, 1328px);
+  margin: 0 auto;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-wordmark {
+  color: var(--maroon);
+  font: 650 42px/1 var(--font-display);
+  letter-spacing: -3px;
+}
+
+.site-brand-star {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: top;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.site-nav-right, .site-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.site-link {
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding-block: 14px;
+}
+
+.site-link:hover {
+  color: var(--gold);
+}
+
+.site-nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 44px;
+  padding: 12px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  transition: color 150ms, background 150ms;
+}
+
+.site-nav-cta:hover {
+  color: var(--bg);
+  background: var(--gold);
+}
+
+.site-menu-button {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  min-height: 44px;
+  font: 600 11px var(--font-body);
+  letter-spacing: .1em;
+  cursor: pointer;
+}
+
+.site-sheet {
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raised);
+  box-shadow: 0 16px 24px #3027220a;
+}
+
+.site-sheet[hidden] {
+  display: none;
+}
+
+.site-sheet-link {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+}
+
+@media (min-width: 768px) {
+  .site-sheet {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-nav {
+    width: calc(100% - 40px);
+    min-height: 80px;
+  }
+  .site-wordmark {
+    font-size: 36px;
+  }
+  .site-links {
+    display: none;
+  }
+  .site-menu-button {
+    display: block;
+  }
+  .site-nav-right {
+    gap: 16px;
+  }
+  .site-nav-cta {
+    padding-inline: 12px;
+    gap: 12px;
+    font-size: 12px;
+  }
+}

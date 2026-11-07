@@ -1,0 +1,28 @@
+{
+  "name": "@santa/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "test": "tsc --noEmit -p . && vitest run",
+    "serve": "tsx scripts/serve.ts",
+    "judge-gifts": "tsx scripts/create-judge-gifts.ts",
+    "gen-abi": "tsx scripts/gen-abi.ts"
+  },
+  "dependencies": {
+    "jose": "6.2.12",
+    "viem": "2.57.3",
+    "zod": "4.6.6",
+    "ip-location-api": "5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}

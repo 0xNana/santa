@@ -1,0 +1,19 @@
+{
+  "name": "santa",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "overrides": {
+    "ws": "8.22.0",
+    "dompurify": "3.4.17",
+    "follow-redirects": "1.16.2",
+    "decode-uri-component": "0.5.1",
+    "zod@^4": "4.6.6"
+  },
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "santa": "npm run santa --workspace=@santa/agent --"
+  }
+}

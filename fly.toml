@@ -1,0 +1,68 @@
+# Run fly commands from the repository root. Keep this app at exactly one Machine:
+# its SQLite database belongs to one persistent volume and is not replicated.
+app = "santa-robinhood-testnet"
+primary_region = "lhr"
+kill_signal = "SIGTERM"
+kill_timeout = "30s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[build.args]
+  NEXT_PUBLIC_PRIVY_APP_ID = "cmmansa0x009y0cjgu4ucs56n"
+  NEXT_PUBLIC_SANTA_VAULT_ADDRESS = "0xCBE6dF9722be9c40d18ed3d6263e42C74312C441"
+  SANTA_PUBLIC_ORIGIN = "https://santa-robinhood-testnet.fly.dev"
+
+[deploy]
+  strategy = "rolling"
+  max_unavailable = 1
+
+[env]
+  NEXT_PUBLIC_PRIVY_APP_ID = "cmmansa0x009y0cjgu4ucs56n"
+  NEXT_PUBLIC_SANTA_VAULT_ADDRESS = "0xCBE6dF9722be9c40d18ed3d6263e42C74312C441"
+  PORT = "3000"
+  HOSTNAME = "0.0.0.0"
+  NODE_ENV = "production"
+  ROBINHOOD_RPC_URL = "https://rpc.testnet.chain.robinhood.com"
+  SANTA_VAULT_ADDRESS = "0xCBE6dF9722be9c40d18ed3d6263e42C74312C441"
+  SANTA_PUBLIC_ORIGIN = "https://santa-robinhood-testnet.fly.dev"
+  SANTA_SQLITE_PATH = "/data/santa.sqlite"
+  ILA_FIELDS = "country,region1"
+  ILA_DATA_DIR = "/data/geoip"
+  ILA_TMP_DATA_DIR = "/data/geoip-tmp"
+  ILA_SKIP_INITIAL_RELOAD = "true"
+  ILA_SILENT = "true"
+  SANTA_ALLOW_MEMORY_STORE = "0"
+  SANTA_DEV_ALLOW_UNKNOWN_COUNTRY = "0"
+  SANTA_RELAYER_MAX_GAS_PRICE_WEI = "3000000000"
+  SANTA_RELAYER_DAILY_CAP_WEI = "2000000000000000"
+
+[[mounts]]
+  source = "santa_data"
+  destination = "/data"
+  initial_size = "1gb"
+  snapshot_retention = 14
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 20
+    hard_limit = 40
+
+  [[http_service.checks]]
+    grace_period = "300s"
+    interval = "60s"
+    method = "GET"
+    timeout = "15s"
+    path = "/api/stocks"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "1gb"

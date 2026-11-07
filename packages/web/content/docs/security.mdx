@@ -1,0 +1,14 @@
+---
+title: Security
+description: How Santa protects testnet gifts.
+---
+
+The claim key is generated locally and stored before a gift transaction is sent. The private link uses a URL fragment; keys are not sent to Santa’s API. The claim page removes the fragment before sign-in loads. The encrypted note is readable only with the gift key.
+
+Gift signatures use the Santa EIP-712 domain, vault address and testnet chain ID. Approvals are exact. After sending, the client checks the actual transaction data and gift state before making a link. Recipient signatures bind claims to the chosen wallet.
+
+The relayer has a gas ceiling and daily spend cap. Its key is separate from the owner and sender. Shared Upstash records protect claim attempts and rate limits across server instances; the memory store is for local development only.
+
+SantaVault relies on each ERC-20’s transfer rules. Testnet stock tokens have no monetary value. The vault owner cannot withdraw tokens backing open gifts.
+
+The retained escrow, signature, relayer and recovery tests cover the current flow. Deployment details are public on the testnet explorer; this is not an external audit.

@@ -1,0 +1,47 @@
+# private planning and agent files, never public
+CLAUDE.md
+INTAKE.md
+PLAN.md
+STATE.md
+DECISIONS.md
+AGENT-RETROS.md
+SPEC.md
+SUBMISSION-DRAFTS.md
+DX-FACTS.md
+DX-LOG.md
+docs/RD-BRIEF.md
+docs/AUDIT-PACKET.md
+.claude/
+scratchpad/
+reference/
+
+# secrets
+.env
+.env.*
+*.swp
+!.env.example
+
+node_modules/
+.next/
+.next-verify/
+bscscan-verify/
+
+# gift link files hold live claim keys
+gifts/
+**/gifts/
+
+# private evidence for the DX report Ram writes himself
+dx/
+
+# private research briefs
+docs/RD-PRIVY.md
+.next-*/
+
+# Fumadocs generated content index
+.source/
+
+# Persistent local SQLite records
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*

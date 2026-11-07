@@ -1,0 +1,14 @@
+---
+title: Contracts
+description: Deploy and inspect Santa’s testnet escrow.
+---
+
+Santa uses a fresh **SantaVault** on Robinhood Chain Testnet, chain 46630. The current vault is [`0xCBE6dF9722be9c40d18ed3d6263e42C74312C441`](https://explorer.testnet.chain.robinhood.com/address/0xCBE6dF9722be9c40d18ed3d6263e42C74312C441). The web app reads `NEXT_PUBLIC_SANTA_VAULT_ADDRESS`; the server reads `SANTA_VAULT_ADDRESS`.
+
+SantaVault provides escrow, exact deposit accounting, encrypted notes, expiry rules, claim key registration and replay protection. Its EIP-712 domain is `Santa`, version `1`, bound to chain ID and vault address. ERC-20 transfers enforce each token’s own rules; SantaVault does not call another chain’s compliance contracts.
+
+The vault lists TSLA, AMD, AMZN, NFLX and PLTR stock tokens on testnet. A new deployment requires existing ERC-20 addresses through `SANTA_STOCK_ADDRESSES`. Testnet stock tokens have no monetary value or equity ownership rights.
+
+Each gift lasts between one hour and 90 days. The app offers 7, 30 and 90 days. A gift’s claim key is single-use, and the vault owner cannot withdraw assets backing open gifts. Ownership transfer uses two steps.
+
+Inspect contracts on [Robinhood’s testnet explorer](https://explorer.testnet.chain.robinhood.com). Run `packages/contracts/verify.sh` with the deployed address and ABI-encoded constructor arguments to verify SantaVault on Blockscout.

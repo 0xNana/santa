@@ -1,0 +1,14 @@
+---
+title: How it works
+description: A stock, a personal note, a private link, and a sponsored claim.
+---
+
+1. The server reads the giftable stock list from `SantaVault.listedTokens()`, then reads names and decimals from each token. No trading service or real market price is used.
+2. The sender chooses how much stock to gift from their existing wallet holdings. Both browser and server validate it with integer arithmetic and check the balance.
+3. The browser builds an exact token approval to the configured vault. A random claim key and encrypted note are created locally. The key is saved before `createGift` is sent.
+4. The vault holds the gifted stock tokens. The browser checks the mined transaction and the vault’s gift record before building the link. The key goes in the URL fragment, which is never sent to Santa’s server.
+5. The recipient opens the link. The claim page removes the key from the address bar before loading sign-in. Google or email sign-in creates an embedded wallet with Privy.
+6. The claim key signs for the gift ID, recipient, vault and chain. Santa’s relayer submits the claim and pays test ETH. The recipient’s receipt is checked before showing success.
+7. After expiry, only the original sender can refund an unclaimed gift. Pausing claims does not disable refunds.
+
+The testnet delivery is sponsored. The active app does not buy assets, use a payment facilitator, or request a wrapping fee.

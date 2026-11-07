@@ -1,0 +1,38 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.28"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "forge-std/=lib/forge-std/src/",
+]
+fs_permissions = [{ access = "read-write", path = "./test/vectors" }]
+gas_reports = ["SantaVault"]
+
+[rpc_endpoints]
+robinhood = "https://rpc.testnet.chain.robinhood.com"
+
+[fuzz]
+runs = 10000
+
+[invariant]
+runs = 512
+depth = 128
+fail_on_revert = false
+
+[lint]
+# Tests and mocks are hostile on purpose (zero addresses, assembly bombs, raw calls), so only src/ is linted.
+ignore = ["test/**/*.sol"]
+exclude_lints = [
+    # Gift expiry is a time window by design (threat model C8); a few seconds of validator drift is accepted.
+    "block-timestamp",
+    # The only loop is the constructor listing its starting tokens: one bad token must fail the whole deploy.
+    "require-revert-in-loop",
+    # The delist search writes storage once and then breaks, over at most MAX_TOKENS entries.
+    "costly-loop",
+]

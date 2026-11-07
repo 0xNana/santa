@@ -1,0 +1,18 @@
+---
+title: API
+description: Santa’s active testnet endpoints.
+---
+
+The server returns JSON with fixed error codes and does not include raw RPC errors. Rate limits, body limits, shared claim records and relayer spending limits apply.
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /api/stocks` | Read the vault’s listed stock tokens, metadata and decimals. `priceUsd` is null because testnet stock tokens have no monetary value. |
+| `POST /api/quote` | Validate a held token quantity and wallet balance. The request is `{stock, usdAmount, wallet}`. The existing wire field `usdAmount` now carries stock token units. Success returns `{ok:true, step:"held", stock, usdAmount, amount}` with `amount` in raw units. |
+| `GET /api/gift/<id>` | Read gift state, token, amount and expiry from the vault. |
+| `POST /api/claim` | Validate the recipient’s signed claim and submit it through the sponsored relayer. |
+| `POST /api/judge` | Hand out a gift from the optional configured judge pool. Requires sign-in, a judge code, declaration and recipient signature. |
+
+Quotes allow 1 to 100 stock token units, constrained by the token’s decimals. An unlisted token or insufficient balance is refused. The browser independently checks the quantity and builds its own vault approval and gift transaction.
+
+If the required deployment or server settings are missing, the API remains unavailable. No previous deployment is used as a fallback.
