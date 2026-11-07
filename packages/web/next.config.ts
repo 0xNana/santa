@@ -31,7 +31,9 @@ const nextConfig: NextConfig = {
   // The gift link's share image renders on request and reads its fonts from app/og at run time.
   outputFileTracingIncludes: {
     "/g/[id]/opengraph-image": ["./app/og/*"],
-    "/api/*": ["../../node_modules/ip-location-api/**/*"],
+    // The GeoIP updater runs in a child process, so tracing cannot see these runtime imports.
+    "/api/*": ["ip-location-api", "@fast-csv/parse", "ip-address", "dayjs", "yauzl", "pend"]
+      .map((name) => `../../node_modules/${name}/**/*`),
   },
   // Builds run on webpack, not Turbopack: core is TypeScript source imported by ".js" paths, which
   // Turbopack 16.4 cannot map to the ".ts" files and webpack's extensionAlias can.

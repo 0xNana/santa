@@ -27,6 +27,8 @@ ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
 COPY --from=build --chown=node:node /app/packages/web/.next/standalone ./
 COPY --from=build --chown=node:node /app/packages/web/.next/static ./packages/web/.next/static
 COPY --from=build --chown=node:node /app/packages/web/public ./packages/web/public
+# The GeoIP child-process updater must retain its dependencies in the standalone image.
+RUN node --input-type=module -e 'for (const name of ["ip-location-api", "@fast-csv/parse", "ip-address", "dayjs", "yauzl", "pend"]) import.meta.resolve(name)'
 COPY --chmod=755 scripts/fly-entrypoint.sh /usr/local/bin/santa-entrypoint
 EXPOSE 3000
 ENTRYPOINT ["santa-entrypoint"]
