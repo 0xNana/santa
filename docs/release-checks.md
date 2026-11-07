@@ -22,3 +22,7 @@ Santa's request layer caps bodies before parsing, and its own request schemas us
 Verify `/`, `/send`, `/docs`, and `/api/stocks` after deployment. Confirm the stock list succeeds, judge configuration is open, and region controls reject unknown/restricted locations. Privy must allow the Fly origin before Google/email sign-in can complete; wallet claims need an eligible test recipient.
 
 For subsequent releases, retain the previous Fly image reference and redeploy it with `fly deploy --image <previous-image> --ha=false`. Retain the same volume and runtime secrets. Do not restore an old SQLite snapshot over current claim/relayer records without reconciling chain state. This initial release has no earlier Santa image to roll back to; stop the Machine to suspend delivery while investigating a first-release failure.
+
+## Trial deployment note
+
+The owner chose to keep Fly’s trial deployment. Trial Machines stop after five minutes regardless of the configured always-on setting. The public country/subdivision cache was prepared outside the trial VM, validated with IPv4, IPv6, and subdivision lookups, and verified by SHA-256 before installation. This avoids repeating the expensive first import during each short runtime window. The original volume from the failed host is retained as a backup; only the replacement Machine serves the app.

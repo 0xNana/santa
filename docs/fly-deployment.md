@@ -41,3 +41,9 @@ Single-Machine deployments have brief downtime during updates and host failures.
 The `/api/stocks` health check verifies server configuration, persistent store initialization, the on-chain relayer match, and RPC token reads. A chain outage can make this readiness check fail.
 
 Sources: [Fly configuration](https://docs.fly.io/reference/configuration), [Next.js deployment](https://docs.fly.io/js/frameworks/nextjs), [request headers](https://docs.fly.io/networking/request-headers), [volumes](https://docs.fly.io/volumes/overview).
+
+## Trial accounts
+
+[Fly’s trial](https://fly.io/docs/about/free-trial/) stops Machines after five minutes even when this configuration sets automatic stopping to `off`; performance CPUs are also unavailable. The current demo intentionally remains on the trial. Add billing for continuous hosting.
+
+The first country/subdivision CSV conversion can exceed the trial window on a small shared CPU. Prepare the same `ip-location-api` cache outside the trial Machine and install the completed, checksum-verified files under `/data/geoip` before starting the app. Keep `ILA_FIELDS=country,region1` and the same library version on both systems. The cached startup reads these files directly; automatic refresh remains enabled. Transfer only the public geolocation dataset, never local `.env` files or wallet keys.
