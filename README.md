@@ -1,4 +1,4 @@
-<p align="center"><img src="packages/web/public/v-mark.svg" alt="Santa" width="56"></p>
+<p align="center"><img src="packages/web/public/logo-square.png" alt="Santa" width="72"></p>
 
 # Santa
 
@@ -90,7 +90,7 @@ Quantities are stock token units, from 1 to 100, rather than dollar amounts. The
 
 The current testnet experience gifts stocks the sender already holds, with sponsored delivery. Retired trading and payment endpoints have been removed.
 
-See [ARCHITECTURE.md](ARCHITECTURE.md), the app’s `/docs`, and [migration notes](docs/robinhood-migration.md).
+See [ARCHITECTURE.md](ARCHITECTURE.md), the app’s `/docs`, [migration notes](docs/robinhood-migration.md), and [PNG/SVG brand assets](docs/brand-assets.md).
 
 ## Verify
 
