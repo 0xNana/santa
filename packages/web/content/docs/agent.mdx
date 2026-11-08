@@ -3,14 +3,51 @@ title: CLI
 description: Send stock gifts to loved ones from the command line.
 ---
 
-The Santa CLI uses a dedicated test wallet on Robinhood Chain Testnet. Put `SANTA_AGENT_PRIVATE_KEY`, `SANTA_VAULT_ADDRESS`, `SANTA_PUBLIC_ORIGIN`, and optionally `ROBINHOOD_RPC_URL` in the repo-root `.env`. It does not read the deployer or relayer key as the sending wallet.
+The Santa CLI sends gifts from a dedicated test wallet on Robinhood Chain Testnet.
 
-```sh
+## Before you start
+
+Add these settings to the repository-root `.env`:
+
+- `SANTA_AGENT_PRIVATE_KEY`: the dedicated wallet that sends gifts.
+- `SANTA_VAULT_ADDRESS`: the vault used by your Santa app.
+- `SANTA_PUBLIC_ORIGIN`: the app's URL.
+- `ROBINHOOD_RPC_URL`: an optional testnet RPC override.
+
+The sender wallet must already hold the Stock Tokens you want to gift and test ETH for network fees. The CLI does not use the deployer or relayer key as the sending wallet.
+
+Run the following commands from the repository root.
+
+## Check your wallet and gifts
+
+View your wallet status and recover links for pending gifts:
+
+```sh title="Check status"
 npm run santa -- status
-npm run santa -- gift TSLA 5 --note "For your next chapter. With love." --days 30
+```
+
+## Send a personal gift
+
+Send **5 TSLA testnet tokens**, include a personal note, and set a **30-day expiry**:
+
+```sh title="Send a TSLA gift"
+npm run santa -- gift TSLA 5 \
+  --note "For your next chapter. With love." \
+  --days 30
+```
+
+The backslashes continue one command across several lines. Copy the entire block into your shell. Quantities are token units, not dollar amounts. The CLI asks you to confirm before sending.
+
+## Send without a confirmation prompt
+
+Send **10 AMD testnet tokens** and skip the interactive confirmation with `--yes`:
+
+```sh title="Send an AMD gift without prompting"
 npm run santa -- gift AMD 10 --yes
 ```
 
-The quantity is stock token units, not dollars. Your wallet must already hold the listed stock token and test ETH. The CLI asks for confirmation unless `--yes` is supplied. It builds the exact approval locally, seals the gift, and saves its private link under `gifts/46630/<vault>/`. Link files have permission 0600.
+## Find and recover gift links
+
+The CLI builds the exact approval locally, seals the gift, and saves its private link under `gifts/46630/<vault>/`. Link files have permission `0600`.
 
 A pending key is written before a gift can be submitted. If a send is interrupted, `status` looks for its gift and saves the recovered link. Keep pending files until recovery completes; never share or commit them. Links and keys are not printed in terminal output.

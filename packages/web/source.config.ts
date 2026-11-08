@@ -7,6 +7,8 @@ export default defineConfig({
   mdxOptions: {
     // Turns each mermaid fence into a <Mermaid chart="..." /> element before the code highlighter sees it.
     remarkPlugins: [remarkMdxMermaid],
-    rehypeCodeOptions: { themes: { light: "vesper", dark: "vesper" } },
+    rehypeCodeOptions: {
+      themes: { light: "github-light-high-contrast", dark: "github-dark-high-contrast" },
+    },
   },
 });
